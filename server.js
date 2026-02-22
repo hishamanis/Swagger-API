@@ -1,6 +1,6 @@
 // server.js
 // A simple Express server with Swagger UI integration
-// by Hisham Anis written on 2025-10-26
+// by Hish Anis written on 2025-10-26
 // This code, written in Typescript, sets up an Express server that serves Swagger UI documentation
 // Start of server.js
 
@@ -112,5 +112,6 @@ process.on('SIGINT', () => {
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
+
 
 // End of server.js
