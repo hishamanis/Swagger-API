@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Sample API by "Hisham Anis"
+  title: Sample API by "Hish Anis"
   description: A sample API to illustrate OpenAPI concepts in yaml format
   version: 1.0.0
 paths:
@@ -133,4 +133,5 @@ components:
       required: true
       schema:
         type: integer
+
       description: ID of the item to operate on
