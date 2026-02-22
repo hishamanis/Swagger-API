@@ -1,0 +1,136 @@
+openapi: 3.0.0
+info:
+  title: Sample API by "Hisham Anis"
+  description: A sample API to illustrate OpenAPI concepts in yaml format
+  version: 1.0.0
+paths:
+  /:
+    get:
+      summary: Root endpoint
+      responses:
+        '200':
+          description: Welcome message
+  /items:
+    get:
+      summary: Retrieve a list of items
+      tags: [items]
+      responses:
+        '200':
+          description: A list of items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Item'
+    post:
+      summary: Create a new item
+      tags: [items]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+              required:
+                - name
+      responses:
+        '201':
+          description: Item created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '400':
+          $ref: '#/components/responses/InvalidInput'
+  /items/{itemId}:
+    parameters:
+      - $ref: '#/components/parameters/ItemId'
+    get:
+      summary: Retrieve a specific item by ID
+      tags: [items]
+      responses:
+        '200':
+          description: A single item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '400':
+          $ref: '#/components/responses/InvalidInput'
+    put:
+      summary: Update an item by ID
+      tags: [items]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '200':
+          description: Item updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '400':
+          $ref: '#/components/responses/InvalidInput'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      summary: Delete a specific item by ID
+      tags: [items]
+      responses:
+        '200':
+          description: Item deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '400':
+          $ref: '#/components/responses/InvalidInput'
+components:
+  schemas:
+    Item:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the item
+        name:
+          type: string
+          description: Name of the item
+        description:
+          type: string
+          description: Optional description of the item
+      required:
+        - id
+        - name
+  responses:
+    NotFound:
+      description: The specified resource was not found
+    InvalidInput:
+      description: The input provided was invalid
+  parameters:
+    ItemId:
+      name: itemId
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: ID of the item to operate on
